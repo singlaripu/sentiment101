@@ -1,0 +1,38 @@
+{% extends "webapp/login.html" %}
+{% block search %}
+	{% if login_success %}
+		<div class="row">
+			<div class="col-md-8 pull-left">
+				<a href="/webapp">Home</a>
+			</div>
+			{% if error_message %}
+				<h2>Damn that error: {{ error_message }}</h2>
+			{% else %}
+				{% if user %}
+					<div class="col-md-4">
+						<a href="#" class="btn btn-primary disabled pull-right" role="button">
+							<i class="fa fa-twitter"></i> Logged in as {{ user.name }}<br>
+						</a>
+					</div>
+				{% endif %}
+			{% endif %}
+		</div>
+
+	{% endif %}
+
+	<br>
+	<div class="row">
+		<form class="form-horizontal" method="get" action="search">			
+		    <div class="col-xs-6">
+		    	<div class="input-group">
+		      		<input class="form-control" type="text" id="formGroupInputLarge" placeholder="Search Tweets" name="q" value="{{ query }}">
+		      		<span class="input-group-btn">
+					  	<button type="submit" class="btn btn-primary in-line">Go</button>
+					</span>		    	
+		  		</div>
+	  		</div>
+		</form>
+	</div>
+
+
+{% endblock %}

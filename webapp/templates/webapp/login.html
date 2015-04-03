@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+  	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sentiment Analysis on tweets about Movie / Tv Shows">
+    <meta name="author" content="Ripu Singla">
+    <meta name="keywords" content="Sentiment Analysis, Tweets, Movies, TV Shows" > 
+    <title>Sentiment Analysis </title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.2.1/bootstrap-social.min.css">
+
+    <style type="text/css">
+    	html, body, .container {
+		    height: 100%;
+		    margin:1%;
+		}
+
+		.container {
+		    display: table;
+		    vertical-align: middle;
+		}
+
+		.vertical-center-row {
+		    display: table-cell;
+		    vertical-align: middle;
+		}
+
+		blockquote p {
+		  font-size: 15.5px;
+		  font-weight: 300;
+		  line-height: 1.25;
+		}
+
+		.btn {
+		    margin-bottom:20px;
+		}
+
+		.sentiment-Positive {
+			background-color: #EFC;
+			border: 2px solid;
+			border-color: #C6DD97;
+		}
+
+		.sentiment-Negative {
+			background-color: #FFE0E0;
+			border: 2px solid;
+		  	border-color: #FFC2C2;
+		}
+
+		.sentiment-Neutral {
+			border: 2px solid;
+			border-color: #dddddd;
+		}
+
+		.twitter-username {
+			text-decoration: underline;
+			color: #333;
+		}
+    </style>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      // google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart(query, graph) {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Positive', graph[0]],
+          ['Negative', graph[1]],
+          ['Neutral', graph[2]]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Sentiment Analysis for ' + query,
+                       'width':400,
+                       'height':300,
+                       'is3D': true,
+                       'colors': ['#669900', '#C70000', '#0066CC']
+                   };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+  </head>
+
+	<body onload="drawChart('{{query}}', {{ graph }})">
+
+		<div class="container">
+			{% block login %}
+				{% if not_logged_in %}	
+					<div class="row" style="margin-top:5%">
+						<div class="col-lg-12">
+				            <div class="row ">
+				                <div class="col-md-4 col-xs-offset-4">
+				                	<a href="login" class="btn btn-block btn-social btn-twitter btn-large">
+							    		<i class="fa fa-twitter"></i> Sign in with Twitter
+							 		</a>
+				                </div>
+				            </div>
+				        </div>
+					</div>
+				{% endif %}
+			{% endblock %}
+			{% block search %} {% endblock %}
+			{% block results %} {% endblock %}
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
