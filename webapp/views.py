@@ -120,10 +120,9 @@ def search(request):
 
         rendered = render_to_string('webapp/index.html', context)
         response.write(rendered)
-        return response
-    # else:
-    #     context = {'not_logged_in': True}
-    #     return render(request, 'webapp/login.html', context)
+    else:
+        login(request)
+    return response
     
 
 
