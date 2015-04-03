@@ -1,0 +1,4 @@
+Authomatic==0.0.12
+Django==1.8
+gunicorn==19.3.0
+wsgiref==0.1.2

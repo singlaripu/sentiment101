@@ -11,5 +11,5 @@ from django.conf.urls import include, url, patterns
 # ]
 
 urlpatterns = patterns('',
-    url(r'^webapp/', include('webapp.urls')),
+    url(r'^', include('webapp.urls')),
 )
