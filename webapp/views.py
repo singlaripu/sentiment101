@@ -15,6 +15,7 @@ import os
 info.setup()
 authomatic = Authomatic(CONFIG, os.environ.get('authomatic_key'))
 user_session = ''
+credentials = ''
 
 
 def home(request):
@@ -29,6 +30,7 @@ def login(request):
     context['not_logged_in'] = True
     provider_name = "tw"
     global user_session
+    global credentials
     
     # Start the login procedure.
     user_session = authomatic.login(DjangoAdapter(request, response), provider_name)
@@ -53,6 +55,11 @@ def login(request):
             if not (user_session.user.name and user_session.user.id):
                 user_session.user.update()
 
+            if user_session.user.credentials:
+                credentials = user_session.user.credentials
+                print credentials
+                print user_session
+
             context['user'] = user_session.user
                       
         rendered = render_to_string('webapp/search.html', context)
@@ -68,6 +75,16 @@ def search(request):
     context['not_logged_in'] = True
     provider_name = 'tw'
     context['query'] = query
+
+    # global user_session
+    # global credentials
+    
+    # Start the login procedure.
+    # user_session = authomatic.login(DjangoAdapter(request, response), provider_name)
+
+    if not user_session:
+        global user_session
+        user_session = authomatic.login(DjangoAdapter(request, response), provider_name)
 
     if user_session:
         # If there is result, the login procedure is over and we can write to response.
@@ -102,6 +119,13 @@ def search(request):
                                                                     'result_type': 'mixed',
                                                                     'lang': 'en'
                                                             })
+                    # access_response = authomatic.access(credentials, url, {
+                    #                                                 'q': query, 
+                    #                                                 'include_entities':'false',
+                    #                                                 'count': 100,
+                    #                                                 'result_type': 'mixed',
+                    #                                                 'lang': 'en'
+                    #                                         })
                     context['status'] = False
                     # Parse response.
                     if access_response.status == 200:
