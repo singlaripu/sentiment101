@@ -17,8 +17,7 @@ from django.http import HttpResponseRedirect
 
 info.setup()
 # authomatic = Authomatic(CONFIG, os.environ.get('authomatic_key'))
-# user_session = ''
-# credentials = ''
+
 
 
 def home(request):
