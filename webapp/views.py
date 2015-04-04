@@ -35,7 +35,7 @@ def twitter_callback(request):
     response = HttpResponse()
     context = {}
     context['not_logged_in'] = False
-    context['user'] = 'dummy_user'
+    
     oauth_verifier = request.GET['oauth_verifier']
     twitter = Twython(
         os.environ.get('consumer_key'), 
@@ -47,6 +47,14 @@ def twitter_callback(request):
     request.session['oauth_token'] = authorized_tokens['oauth_token']
     request.session['oauth_token_secret'] = authorized_tokens['oauth_token_secret']
 
+    twitter = Twython(
+        os.environ.get('consumer_key'), 
+        os.environ.get('consumer_secret'),
+        request.session['oauth_token'],
+        request.session['oauth_token_secret'],
+    )
+    request.session['screen_name'] = twitter.verify_credentials()['screen_name']
+    context['user'] = request.session['screen_name']
     rendered = render_to_string('webapp/search.html', context)
     response.write(rendered)
     return response
@@ -59,7 +67,7 @@ def search(request):
     context = {}
     context['query'] = query
     context['not_logged_in'] = False
-    context['user'] = 'dummy_user'           
+    context['user'] = request.session['screen_name']
 
     twitter = Twython(
         os.environ.get('consumer_key'), 
