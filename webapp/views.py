@@ -172,7 +172,9 @@ def login1(request):
     context['user'] = 'dummy_user'
 
     twitter = Twython(os.environ.get('consumer_key'), os.environ.get('consumer_secret'))
-    auth_props = twitter.get_authentication_tokens(callback_url='http://sentiment101.herokuapp.com:8000/twitter_callback')
+    # auth_props = twitter.get_authentication_tokens(callback_url='http://sentiment101.herokuapp.com:8000/twitter_callback')
+    auth_props = twitter.get_authentication_tokens(callback_url=request.build_absolute_uri(reverse('twitter_callback')))
+    
     request.session['request_token'] = auth_props
     return HttpResponseRedirect(auth_props['auth_url'])
 
