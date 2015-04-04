@@ -61,6 +61,7 @@ def login(request):
                 print user_session
 
             context['user'] = user_session.user
+            context['user_session'] = user_session
                       
         rendered = render_to_string('webapp/search.html', context)
         response.write(rendered)
@@ -75,6 +76,7 @@ def search(request):
     context['not_logged_in'] = True
     provider_name = 'tw'
     context['query'] = query
+    context['user_session'] = user_session
 
     # global user_session
     # global credentials
@@ -82,11 +84,11 @@ def search(request):
     # Start the login procedure.
     # user_session = authomatic.login(DjangoAdapter(request, response), provider_name)
 
-    if not user_session:
-        global user_session
-        user_session = authomatic.login(DjangoAdapter(request, response), provider_name)
+    # if not user_session:
+    #     global user_session
+    #     user_session = authomatic.login(DjangoAdapter(request, response), provider_name)
 
-    if user_session:
+    if False:
         # If there is result, the login procedure is over and we can write to response.
         context['login_success'] = True
         context['error_message'] = False
@@ -145,7 +147,11 @@ def search(request):
         rendered = render_to_string('webapp/index.html', context)
         response.write(rendered)
     else:
-        login(request)
+        # login(request)
+        pass
+
+    rendered = render_to_string('webapp/index.html', context)
+    response.write(rendered)
     return response
     
 
