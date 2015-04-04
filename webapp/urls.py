@@ -6,6 +6,7 @@ import views
 
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
-    url(r'^login', views.login, name='login'),
-    url(r'^search', views.search, name='search')
+    url(r'^login', views.login1, name='login'),
+    url(r'^search', views.search, name='search'),
+    url(r'^twitter_callback', views.twitter_callback, name='twitter_callback')
 )

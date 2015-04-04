@@ -1,24 +1,20 @@
 {% extends "webapp/login.html" %}
 {% block search %}
-	{% if login_success %}
-		<div class="row">
-			<div class="col-md-8 pull-left">
-				<a href="/webapp">Home</a>
-			</div>
-			{% if error_message %}
-				<h2>Damn that error: {{ error_message }}</h2>
-			{% else %}
-				{% if user %}
-					<div class="col-md-4">
-						<a href="#" class="btn btn-primary disabled pull-right" role="button">
-							<i class="fa fa-twitter"></i> Logged in as {{ user.name }}<br>
-						</a>
-					</div>
-				{% endif %}
-			{% endif %}
+
+	<div class="row">
+		<div class="col-md-8 pull-left">
+			<a href="/webapp">Home</a>
 		</div>
 
-	{% endif %}
+		{% if user %}
+			<div class="col-md-4">
+				<a href="#" class="btn btn-primary disabled pull-right" role="button">
+					<i class="fa fa-twitter"></i> Logged in as {{ user }}<br>
+				</a>
+			</div>
+		{% endif %}
+
+	</div>
 
 	<br>
 	<div class="row">
@@ -33,9 +29,5 @@
 	  		</div>
 		</form>
 	</div>
-
-	<p> loginresult: {{user_session}} </p>
-	<p> credentials: {{credentials}} </p>
-
 
 {% endblock %}

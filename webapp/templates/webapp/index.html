@@ -14,50 +14,44 @@
 	<div id="chart_div"></div>
 	<div class="row" style="margin-top:-20px;" >
 
-	{% if provider_name %}
-		{% if status %}
-			{% if is_list %}							
-				{% for tweet in tweets %}
-					<div class="col-md-8">
-						<blockquote class="sentiment-{{tweet.sentiment}}">
-							<p>
-								<a class="twitter-username" href="http://www.twitter.com/{{ tweet.screen_name }}">
-									{{ tweet.screen_name }}:</a> {{ tweet.text }}
-							</p>
-							<p>
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-md-1">
-											{% if tweet.sentiment == 'Positive' %}
-												<i class="fa fa-thumbs-up fa-lg"></i> 
-											{% endif %}
-											{% if tweet.sentiment == 'Negative' %}
-												<i class="fa fa-thumbs-down fa-lg"></i> 
-											{% endif %}
-											{% if tweet.sentiment == 'Neutral' %}
-												<i class="fa fa-comment-o fa-lg"></i> 
-											{% endif %}
-										</div>
-										<div class="col-md-2">
-											<p>
-												<i class="fa fa-line-chart fa-lg"></i> {{ tweet.confidence }}
-											</p>
-										</div>
-										<div class="col-md-4 pull-right"><p>- {{ tweet.created_at }}</p></div>
-									</div>
+	{% if is_list %}							
+		{% for tweet in tweets %}
+			<div class="col-md-8">
+				<blockquote class="sentiment-{{tweet.sentiment}}">
+					<p>
+						<a class="twitter-username" href="http://www.twitter.com/{{ tweet.screen_name }}">
+							{{ tweet.screen_name }}:</a> {{ tweet.text }}
+					</p>
+					<p>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-1">
+									{% if tweet.sentiment == 'Positive' %}
+										<i class="fa fa-thumbs-up fa-lg"></i> 
+									{% endif %}
+									{% if tweet.sentiment == 'Negative' %}
+										<i class="fa fa-thumbs-down fa-lg"></i> 
+									{% endif %}
+									{% if tweet.sentiment == 'Neutral' %}
+										<i class="fa fa-comment-o fa-lg"></i> 
+									{% endif %}
 								</div>
-							</p>							
-						</blockquote>
-					</div>
-				{% endfor %} 
-			{% else %}
-				Damn that error: {{ data_errors }}!
-			{% endif %}
-		{% else %}
-			Damn that unknown error!
-			Status: {{ status_error }}
-		{% endif %}
+								<div class="col-md-2">
+									<p>
+										<i class="fa fa-line-chart fa-lg"></i> {{ tweet.confidence }}
+									</p>
+								</div>
+								<div class="col-md-4 pull-right"><p>- {{ tweet.created_at }}</p></div>
+							</div>
+						</div>
+					</p>							
+				</blockquote>
+			</div>
+		{% endfor %} 
+	{% else %}
+		Damn that error: {{ data_errors }}!
 	{% endif %}
+
 	
 	</div>
 {% endblock %}
