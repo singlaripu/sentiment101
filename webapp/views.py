@@ -62,6 +62,7 @@ def login(request):
 
             context['user'] = user_session.user
             context['user_session'] = user_session
+            context['credentials'] = credentials
                       
         rendered = render_to_string('webapp/search.html', context)
         response.write(rendered)
@@ -76,7 +77,12 @@ def search(request):
     context['not_logged_in'] = True
     provider_name = 'tw'
     context['query'] = query
+
+    global user_session
+    global credentials
+    
     context['user_session'] = user_session
+    context['credentials'] = credentials
 
     # global user_session
     # global credentials
