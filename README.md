@@ -1,7 +1,7 @@
-# Sentiment
+# Sentiment Analysis for recent Movie Tweets
 
 
-Approach (time taken 8-10 hours):
+Approach (time taken ~10 hours):
 
 1. Use basic Django framework to create the desired layout with some dummy data - https://www.djangoproject.com/
 
@@ -22,6 +22,7 @@ Approach (time taken 8-10 hours):
 9. Post to Github.
 
 Links:
+
 http://sentiment101.herokuapp.com/
 
 https://github.com/singlaripu/sentiment101
